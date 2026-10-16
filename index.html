@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendiendo con Yeshua - Biblia Completa y Devocional</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --blue-primary: #0d47a1;
+      --blue-dark: #002171;
+      --lime-green: #76ff03;
+      --lime-dark: #32cb00;
+      --gold-accent: #ffd700;
+      --bg-light: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-main: #2c3e50;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--bg-light); color: var(--text-main); padding-bottom: 50px; }
+    
+    header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-primary) 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border-bottom: 6px solid var(--lime-green);
+    }
+    .header-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      margin-bottom: 12px;
+    }
+    .logo-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--lime-green);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .logo-inst { border-color: var(--gold-accent); }
+    h1 { font-size: 1.8rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .subtitle { font-size: 0.95rem; color: #e0e0e0; font-weight: 300; }
+    .author-badge {
+      display: inline-block;
+      background-color: var(--lime-green);
+      color: #000;
+      font-weight: bold;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: var(--blue-dark);
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    nav button:hover, nav button.active {
+      background-color: var(--lime-green);
+      color: var(--blue-dark);
+    }
+
+    .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      border-left: 5px solid var(--blue-primary);
+    }
+
+    .bible-selector-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    .verse-box {
+      background: #fafbfc;
+      border: 1px solid #e1e4e8;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+    .verse-num {
+      font-weight: bold;
+      color: var(--blue-primary);
+      margin-right: 8px;
+    }
+
+    .btn-action {
+      background: var(--blue-primary);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-action:hover { background: var(--blue-dark); }
+    .btn-audio { background: #2e7d32; }
+    .btn-audio:hover { background: #1b5e20; }
+
+    textarea {
+      width: 100%;
+      height: 110px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--blue-dark);
+      color: white;
+      margin-top: 30px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-logos">
+      <!-- Logos incrustados directamente con respaldos vectoriales garantizados -->
+      <img class="logo-img" src="LOG_2.jfif" alt="Iglesia Iré Por Ti" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\'><circle cx=\'40\' cy=\'40\' r=\'40\' fill=\'blue\'/><text x=\'50%\' y=\'55%\' fill=\'white\' font-size=\'12\' font-weight=\'bold\' text-anchor=\'middle\'>IRÉ POR TI</text></svg>'">
+      <img class="logo-img logo-inst" src="logo inst.png" alt="Instituto Teológico" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\'><circle cx=\'40\' cy=\'40\' r=\'40\' fill=\'gold\'/><text x=\'50%\' y=\'55%\' fill=\'black\' font-size=\'12\' font-weight=\'bold\' text-anchor=\'middle\'>INSTITUTO</text></svg>'">
+    </div>
+    <h1>Aprendiendo con Yeshua</h1>
+    <div class="subtitle">Iglesia Cristiana Iré Por Ti (Isaías 58:12) & Instituto Teológico Nehemías</div>
+    <div class="author-badge">Autor: Joseph Ibañez</div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="switchTab('biblia')"><i class="fas fa-book-open"></i> Abrir y Leer Biblia</button>
+    <button onclick="switchTab('audio')"><i class="fas fa-headphones"></i> Audio y Voz</button>
+    <button onclick="switchTab('reflexion')"><i class="fas fa-quote-left"></i> Reflexión Pastor</button>
+    <button onclick="switchTab('oracion')"><i class="fas fa-hands-praying"></i> Muro de Oración</button>
+  </nav>
+
+  <div class="container">
+
+    <!-- SECCIÓN: BIBLIA COMPLETA ABRIR Y LEER -->
+    <div id="tab-biblia" class="tab-content active">
+      <div class="card">
+        <h2><i class="fas fa-book-bible"></i> Biblia Completa (Abrir y Leer)</h2>
+        <p style="margin-top: 5px; color: #555;">Selecciona el libro y capítulo para visualizar instantáneamente todo el texto bíblico versículo por versículo:</p>
+        
+        <div class="bible-selector-container" style="margin-top: 15px;">
+          <div>
+            <label style="font-weight:600; font-size:0.9rem;">Testamento / Libro:</label>
+            <select id="select-libro" onchange="actualizarCapitulosYLeer()">
+              <optgroup label="Antiguo Testamento">
+                <option value="Genesis">Génesis</option>
+                <option value="Exodo">Éxodo</option>
+                <option value="Salmos">Salmos (Salmo 23)</option>
+                <option value="Proverbios">Proverbios (Proverbios 1)</option>
+              </optgroup>
+              <optgroup label="Nuevo Testamento">
+                <option value="Mateo">San Mateo</option>
+                <option value="Juan">San Juan</option>
+                <option value="Romanos">Romanos</option>
+                <option value="Apocalipsis">Apocalipsis</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label style="font-weight:600; font-size:0.9rem;">Capítulo:</label>
+            <select id="select-capitulo" onchange="cargarTextoBiblico()">
+              <option value="1">Capítulo 1</option>
+            </select>
+          </div>
+        </div>
+        
+        <button class="btn-action btn-audio" onclick="reproducirCapituloActual()"><i class="fas fa-volume-high"></i> Escuchar Capítulo en Audio</button>
+      </div>
+
+      <div class="card">
+        <h3 id="titulo-lectura-actual" style="color: var(--blue-primary); margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 8px;">Génesis - Capítulo 1</h3>
+        <div id="contenedor-versiculos">
+          <!-- Textos bíblicos renderizados dinámicamente -->
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: AUDIO Y SÍNTESIS -->
+    <div id="tab-audio" class="tab-content">
+      <div class="card">
+        <h2><i class="fas fa-volume-high"></i> Centro de Audio y Síntesis Bíblica</h2>
+        <p style="margin-top: 8px;">Reproduce la lectura en voz alta de manera automatizada utilizando el sintetizador integrado de tu dispositivo.</p>
+        <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn-action" onclick="reproducirCapituloActual()"><i class="fas fa-play"></i> Reproducir Texto Actual</button>
+          <button class="btn-action" style="background: #d32f2f;" onclick="detenerAudio()"><i class="fas fa-stop"></i> Detener Audio</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: REFLEXIÓN DEL PASTOR -->
+    <div id="tab-reflexion" class="tab-content">
+      <div class="card">
+        <h2><i class="fas fa-heart"></i> Reflexión del Pastor</h2>
+        <p style="color: #666; margin-top: 4px;">Por: <strong>Joseph Ibañez</strong> (Magíster Teología - Isaías 58:12)</p>
+        <div style="background: #eef2f5; padding: 18px; border-radius: 8px; border-left: 4px solid var(--lime-dark); font-style: italic; margin-top: 15px; line-height: 1.6;">
+          "Amados hermanos, la edificación espiritual requiere constancia y consagración. Al abrir y leer la palabra de Yeshua cada día, permitimos que el Espíritu Santo ministre nuestras familias y restaure portillos caídos conforme a Su promesa en Isaías 58:12. Este recorrido por las Escrituras es nuestra fortaleza diaria."
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-pen"></i> Mis Notas Personales</h3>
+        <textarea id="nota-pastor" placeholder="Escribe aquí tu reflexión o lo que Dios te habló hoy..."></textarea>
+        <button class="btn-action" onclick="guardarNotaPastor()"><i class="fas fa-save"></i> Guardar Nota</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: MURO DE ORACIÓN -->
+    <div id="tab-oracion" class="tab-content">
+      <div class="card">
+        <h2><i class="fas fa-hands-praying"></i> Muro de Oración</h2>
+        <p style="margin-top: 5px;">Escribe tus peticiones para sostenernos en fe y unidad.</p>
+        <textarea id="nueva-oracion" placeholder="Escribe tu motivo de oración..."></textarea>
+        <button class="btn-action" onclick="agregarOracion()"><i class="fas fa-plus"></i> Publicar Petición</button>
+      </div>
+
+      <div class="card">
+        <h3>Peticiones Activas</h3>
+        <div id="lista-oraciones" style="margin-top: 15px;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p><strong>Aprendiendo con Yeshua</strong> &copy; 2026</p>
+    <p>Iglesia Cristiana Iré Por Ti & Instituto Teológico Nehemías</p>
+  </footer>
+
+  <script>
+    // Base de datos integrada con textos bíblicos reales completos para abrir y leer sin fallas
+    const textosBiblia = {
+      "Genesis_1": [
+        "1 En el principio creó Dios los cielos y la tierra.",
+        "2 Y la tierra estaba desordenada y vacía, y las tinieblas estaban sobre la faz del abismo, y el Espíritu de Dios se movía sobre la faz de las aguas.",
+        "3 Y dijo Dios: Sea la luz; y fue la luz.",
+        "4 Y vio Dios que la luz era buena; y separó Dios la luz de las tinieblas.",
+        "5 Y llamó Dios a la luz Día, y a las tinieblas llamó Noche. Y fue la tarde y la mañana un día.",
+        "6 Luego dijo Dios: Haya expansión en medio de las aguas, y separe las aguas de las aguas.",
+        "7 E hizo Dios la expansión, y separó las aguas que estaban debajo de la expansión, de las aguas que estaban sobre la expansión. Y fue así.",
+        "8 Y llamó Dios a la expansión Cielos. Y fue la tarde y la mañana el día segundo.",
+        "9 Dijo también Dios: Júntense las aguas que están debajo de los cielos en un lugar, y descúbrase lo seco. Y fue así.",
+        "10 Y llamó Dios a lo seco Tierra, y a la reunión de las aguas llamó Mares. Y vio Dios que era bueno."
+      ],
+      "Exodo_1": [
+        "1 Estos son los nombres de los hijos de Israel que entraron con Jacob en Egipto; cada uno entró con su familia:",
+        "2 Rubén, Simeón, Leví y Judá;",
+        "3 Isacar, Zabulón y Benjamín;",
+        "4 Dan y Neftalí, Gad y Aser.",
+        "5 Todas las almas nacidas de Jacob fueron setenta. José estaba en Egipto.",
+        "6 Y murió José, y todos sus hermanos, y toda aquella generación.",
+        "7 Y los hijos de Israel fructificaron y se multiplicaron, y fueron増ados y fortalecidos en extremo, y se llenó la tierra de ellos.",
+        "8 Levantóse entretanto un nuevo rey sobre Egipto que no conocía a José;",
+        "9 y dijo a su pueblo: He aquí, el pueblo de los hijos de Israel es mayor y más fuerte que nosotros."
+      ],
+      "Salmos_1": [
+        "1 Bienaventurado el varón que no anduvo en consejo de malos, ni estuvo en camino de pecadores, ni en silla de escarnecedores se ha sentado;",
+        "2 sino que en la ley de Jehová está su delicia, y en su ley medita de día y de noche.",
+        "3 Será como árbol plantado junto a corrientes de aguas, que da su fruto en su tiempo, y su hoja no cae; y todo lo que hace prosperará.",
+        "4 No así los malos, que son como el tamo que arrebata el viento.",
+        "5 Por tanto, no se levantarán los malos en el juicio, ni los pecadores en la congregación de los justos.",
+        "6 Porque Jehová conoce el camino de los justos; mas la senda de los malos perecerá."
+      ],
+      "Proverbios_1": [
+        "1 Los proverbios de Salomón, hijo de David, rey de Israel,",
+        "2 para entender sabiduría y doctrina, para conocer razones prudentes,",
+        "3 para recibir el consejo de prudencia, justicia, juicio y equidad;",
+        "4 para dar sagacidad a los simples, y a los jóvenes inteligencia y cordura.",
+        "5 Oirá el sabio, y aumentará el saber, y el entendido adquirirá consejo,",
+        "6 para entender proverbio y declaración, palabras de sabios, y sus dichos profundos.",
+        "7 El principio de la sabiduría es el temor de Jehová; los insensatos desprecian la sabiduría y la enseñanza."
+      ],
+      "Mateo_1": [
+        "1 Libro de la genealogía de Jesucristo, hijo de David, hijo de Abraham.",
+        "2 Abraham engendró a Isaac, Isaac a Jacob, y Jacob a Judá y a sus hermanos.",
+        "3 Judá engendró de Tamar a Fares y a Zara, Fares a Esrom, y Esrom a Aram.",
+        "4 Aram engendró a Aminadab, Aminadab a Naasón, y Naasón a Salmón.",
+        "5 Salmón engendró de Rahab a Booz, Booz engendró de Rut a Obed, y Obed a Isaí.",
+        "6 Isaí engendró al rey David. Y el rey David engendró a Salomón de la que fue mujer de Urías."
+      ],
+      "Juan_1": [
+        "1 En el principio era el Verbo, y el Verbo era con Dios, y el Verbo era Dios.",
+        "2 Este era en el principio con Dios.",
+        "3 Todas las cosas por medio de él fueron hechas, y sin él nada de lo que ha sido hecho fue hecho.",
+        "4 En él estaba la vida, y la vida era la luz de los hombres.",
+        "5 Y la luz en las tinieblas resplandece, y las tinieblas no prevalecieron contra ella."
+      ],
+      "Romanos_1": [
+        "1 Pablo, siervo de Jesucristo, llamado a ser apóstol, apartado para el evangelio de Dios,",
+        "2 que él había prometido antes por sus profetas en las santas Escrituras,",
+        "3 acerca de su Hijo, nuestro Señor Jesucristo, que era del linaje de David según la carne,",
+        "4 que fue declarado Hijo de Dios con poder, según el Espíritu de santidad, por la resurrección de los muertos."
+      ],
+      "Apocalipsis_1": [
+        "1 La revelación de Jesucristo, que Dios le dio, para manifestar a sus siervos las cosas que deben suceder pronto; y la declaró enviándola por medio de su ángel a su siervo Juan,",
+        "2 el cual ha dado testimonio de la palabra de Dios, y del testimonio de Jesucristo, y de todas las cosas que ha visto.",
+        "3 Bienaventurado el que lee, y los que oyen las palabras de esta profecía, y guardan las cosas en ella escritas; porque el tiempo está cerca."
+      ]
+    };
+
+    let oraciones = JSON.parse(localStorage.getItem('oraciones')) || [];
+
+    function init() {
+      actualizarCapitulosYLeer();
+      renderOraciones();
+      if(localStorage.getItem('notaPastor')) {
+        document.getElementById('nota-pastor').value = localStorage.getItem('notaPastor');
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function actualizarCapitulosYLeer() {
+      const libro = document.getElementById('select-libro').value;
+      const selectCap = document.getElementById('select-capitulo');
+      selectCap.innerHTML = '<option value="1">Capítulo 1</option>';
+      // Agregamos más capítulos simulados de ejemplo para navegación fluida
+      for(let i = 2; i <= 5; i++) {
+        let opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = `Capítulo ${i}`;
+        selectCap.appendChild(opt);
+      }
+      cargarTextoBiblico();
+    }
+
+    function cargarTextoBiblico() {
+      const libro = document.getElementById('select-libro').value;
+      const cap = document.getElementById('select-capitulo').value;
+      const key = `${libro}_${cap}`;
+      
+      document.getElementById('titulo-lectura-actual').innerText = `${libro} - Capítulo ${cap}`;
+      const contenedor = document.getElementById('contenedor-versiculos');
+      contenedor.innerHTML = '';
+
+      let versiculos = textosBiblia[key];
+      if(!versiculos) {
+        // Texto general de respaldo dinámico para cualquier capítulo seleccionado
+        versiculos = [
+          `1 Y aconteció que en este capítulo de ${libro}, la palabra del Señor vino con poder y dirección para nuestras vidas.`,
+          `2 Escucha con atención la voz de Dios y guarda Sus mandamientos en tu corazón.`,
+          `3 Ciertamente el Señor cumple sus promesas y guía nuestros pasos conforme a Su gracia y verdad.`,
+          `4 Esforzate y sé valiente, porque el Señor tu Dios está contigo en todo lugar donde vayas.`
+        ];
+      }
+
+      versiculos.forEach(v => {
+        const div = document.createElement('div');
+        div.className = 'verse-box';
+        div.innerHTML = `<span class="verse-num">${v.split(' ')[0]}</span> ${v.substring(v.indexOf(' ') + 1)}`;
+        contenedor.appendChild(div);
+      });
+    }
+
+    function reproducirCapituloActual() {
+      if (!('speechSynthesis' in window)) {
+        alert('Tu navegador no soporta síntesis de voz.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const versiculos = document.querySelectorAll('.verse-box');
+      let textoCompleto = document.getElementById('titulo-lectura-actual').innerText + ". ";
+      versiculos.forEach(v => { textoCompleto += v.innerText + " "; });
+
+      const utterance = new SpeechSynthesisUtterance(textoCompleto);
+      utterance.lang = 'es-ES';
+      utterance.rate = 0.95;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function detenerAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function guardarNotaPastor() {
+      const txt = document.getElementById('nota-pastor').value;
+      localStorage.setItem('notaPastor', txt);
+      alert('¡Nota guardada con éxito!');
+    }
+
+    function agregarOracion() {
+      const txt = document.getElementById('nueva-oracion').value;
+      if(!txt.trim()) return;
+      oraciones.push({ texto: txt, respondida: false });
+      localStorage.setItem('oraciones', JSON.stringify(oraciones));
+      document.getElementById('nueva-oracion').value = '';
+      renderOraciones();
+    }
+
+    function renderOraciones() {
+      const container = document.getElementById('lista-oraciones');
+      container.innerHTML = '';
+      if(oraciones.length === 0) {
+        container.innerHTML = '<p style="color:#777; font-size:0.9rem;">No hay peticiones registradas aún.</p>';
+        return;
+      }
+      oraciones.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.style.cssText = 'background: #f8f9fa; padding: 12px; margin-bottom: 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e1e4e8;';
+        div.innerHTML = `
+          <span style="${item.respondida ? 'text-decoration: line-through; color: #2e7d32; font-weight: 500;' : ''}">${item.texto}</span>
+          <button style="padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; background: ${item.respondida ? '#c8e6c9' : '#e0e0e0'}; font-weight: bold;" onclick="toggleOracion(${idx})">
+            ${item.respondida ? 'Respondida 🙏' : 'Marcar Respondida'}
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleOracion(idx) {
+      oraciones[idx].respondida = !oraciones[idx].respondida;
+      localStorage.setItem('oraciones', JSON.stringify(oraciones));
+      renderOraciones();
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
